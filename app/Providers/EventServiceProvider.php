@@ -21,8 +21,17 @@ class EventServiceProvider extends ServiceProvider
      * @var array
      */
     protected $listen = [
+        // Comment related moments
+        'Gitamin\Events\Comment\CommentWasAddedEvent' => [
+            'Gitamin\Handlers\Events\Comment\SendCommentMomentHandler',
+        ],
+         // Issue email notifications
         'Gitamin\Events\Issue\IssueWasAddedEvent' => [
             'Gitamin\Handlers\Events\Issue\SendIssueEmailNotificationHandler',
+        ],
+        // Owner related moments
+        'Gitamin\Events\Owner\OwnerWasAddedEvent' => [
+            'Gitamin\Handlers\Events\Owner\SendOwnerMomentHandler',
         ],
         // Project related moments
         'Gitamin\Events\Project\ProjectWasAddedEvent' => [
@@ -39,7 +48,7 @@ class EventServiceProvider extends ServiceProvider
             'Gitamin\Handlers\Events\Subscriber\SendSubscriberVerificationEmailHandler',
         ],
         'Gitamin\Events\User\UserWasAddedEvent' => [
-            //
+            'Gitamin\Handlers\Events\Owner\AddOwnerAfterUserAddedHandler',
         ],
         'Gitamin\Events\User\UserWasInvitedEvent' => [
             'Gitamin\Handlers\Events\User\SendInviteUserEmailHandler',

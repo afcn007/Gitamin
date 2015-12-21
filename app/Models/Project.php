@@ -45,6 +45,7 @@ namespace Gitamin\Models;
 
 use AltThree\Validator\ValidatingTrait;
 use Gitamin\Presenters\ProjectPresenter;
+use Gitamin\Traits\VisibilityTrait;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -52,7 +53,7 @@ use McCool\LaravelAutoPresenter\HasPresenter;
 
 class Project extends Model implements HasPresenter
 {
-    use SoftDeletes, ValidatingTrait;
+    use SoftDeletes, ValidatingTrait, VisibilityTrait;
 
     /**
      * List of attributes that have default values.
@@ -115,7 +116,7 @@ class Project extends Model implements HasPresenter
      */
     public function owner()
     {
-        return $this->belongsTo(Group::class, 'owner_id', 'id');
+        return $this->belongsTo(Owner::class, 'owner_id', 'id');
     }
 
     /**
@@ -149,7 +150,7 @@ class Project extends Model implements HasPresenter
     }
 
     /**
-     * Find by path, or throw an exception.
+     * Find by owner_path & project_path, or throw an exception.
      *
      * @param string   $owner_path
      * @param string   $project_path
@@ -159,12 +160,14 @@ class Project extends Model implements HasPresenter
      *
      * @return \Gitamin\Models\User
      */
-    public static function findByPath($owner_path, $project_path, $columns = ['projects.*'])
+    public static function findByPath($owner_path, $project_path, $columns = ['*'])
     {
+        $project = Owner::findByPath($owner_path)->project($project_path, $columns);
+        /* Another way
         $project = static::leftJoin('owners', function ($join) {
             $join->on('projects.owner_id', '=', 'owners.id');
         })->where('projects.path', '=', $project_path)->where('owners.path', '=', $owner_path)->first($columns);
-
+        */
         if (! $project) {
             throw new ModelNotFoundException();
         }

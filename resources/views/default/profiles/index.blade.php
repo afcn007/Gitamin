@@ -16,17 +16,20 @@
             <div class="container-fluid container-limited">
                <div class="content">
                     <div class="clearfix">
+                    <!--
                         <div class="gray-content-block top-block">
                         This information will appear on your profile.
                         </div>
                         <div class="prepend-top-default"></div>
-                        <form class="edit_user form-horizontal" method="POST">
+                        -->
+                        <form class="edit_user form-horizontal" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
                             <div class="row">
                                 <div class="col-md-7">
                                     <div class="form-group">
                                         <label class="control-label" for="user_name">Name</label>
                                         <div class="col-sm-10">
-                                            <input class="form-control" id="user_name" name="user[name]" required="required" type="text" value="{{ Input::old('user.name', $current_user->username) }}">
+                                            <input class="form-control" id="user_name" name="user[name]" required="required" type="text" value="{{ Input::old('user.name', $current_user->name) }}">
                                             <span class="help-block">Enter your name, so people you know can recognize you.</span>
                                         </div>
                                     </div>
@@ -40,34 +43,16 @@
                                     </div>
                                     <div class='form-group'>
                                     <label class="control-label" for="user_website_url">Website</label>
-                                    <div class='col-sm-10'><input class="form-control" id="user_website_url" name="user[website_url]" type="text" value="" /></div>
+                                    <div class='col-sm-10'><input class="form-control" id="user_website_url" name="user[website_url]" type="text" value="{{ Input::old('user.website_url', $current_user->website_url) }}" /></div>
                                     </div>
                                     <div class='form-group'>
                                     <label class="control-label" for="user_location">Location</label>
-                                    <div class='col-sm-10'><input class="form-control" id="user_location" name="user[location]" type="text" /></div>
+                                    <div class='col-sm-10'><input class="form-control" id="user_location" name="user[location]" type="text" value="{{ Input::old('user.location', $current_user->location) }}" /></div>
                                     </div>
                                 </div>
                                 <div class="col-md-5">
-                                    <div class="light-well">
-                                        <img alt="" class="avatar s160" src="http://www.gravatar.com/avatar/e64c7d89f26bd1972efa854d13d7dd61?s=160&amp;d=identicon">
-                                        <div class="clearfix">
-                                            <div class="profile-avatar-form-option">
-                                            <p class="light">
-                                            You can upload an avatar here
-                                            <br>
-                                            or change it at <a href="http://gravatar.com">gravatar.com</a>
-                                            </p>
-                                            <hr>
-                                            <a class="choose-btn btn btn-sm js-choose-user-avatar-button">
-                                            <i class="fa fa-paperclip"></i>
-                                            <span>Choose File ...</span>
-                                            </a>
-                                            &nbsp;
-                                            <span class="file_name js-avatar-filename">File name...</span>
-                                            <input class="js-user-avatar-input hidden" id="user_avatar" name="user[avatar]" type="file">
-                                            <div class="light">The maximum file size allowed is 200KB.</div>
-                                            </div>
-                                        </div>
+                                    <div id="dropzone" class="dropzone">
+                                        <div class="well well-drop-zone">Drag and drop files to upload.</div>
                                     </div>
                                 </div>
                             </div>

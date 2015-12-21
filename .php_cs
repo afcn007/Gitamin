@@ -47,6 +47,7 @@ $fixers = [
     'no_empty_lines_after_phpdocs',
     'object_operator',
     'operators_spaces',
+    'ordered_use',
     'parenthesis',
     'phpdoc_indent',
     'phpdoc_inline_tag',
@@ -71,6 +72,7 @@ $fixers = [
     'single_blank_line_before_namespace',
     'single_line_after_imports',
     'single_quote',
+    'spaces_after_semicolon',
     'spaces_before_semicolon',
     'spaces_cast',
     'standardize_not_equal',
@@ -87,6 +89,7 @@ $fixers = [
 return Symfony\CS\Config\Config::create()
     ->level(Symfony\CS\FixerInterface::PSR2_LEVEL)
     ->fixers($fixers)
+    ->setUsingCache(true)
     ->finder(
         Symfony\CS\Finder\DefaultFinder::create()
             ->exclude(['bootstrap/cache', 'storage', 'vendor'])

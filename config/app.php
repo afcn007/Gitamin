@@ -152,16 +152,13 @@ return [
         env('GITAMIN_EMOJI', false) ? 'AltThree\Emoji\EmojiServiceProvider' : null,
         'Barryvdh\Cors\ServiceProvider',
         'Fideloper\Proxy\TrustedProxyServiceProvider',
-        'GrahamCampbell\Binput\BinputServiceProvider',
         'GrahamCampbell\Exceptions\ExceptionsServiceProvider',
-        'GrahamCampbell\Core\CoreServiceProvider',
         'GrahamCampbell\Markdown\MarkdownServiceProvider',
-        'GrahamCampbell\Security\SecurityServiceProvider',
-        'GrahamCampbell\Throttle\ThrottleServiceProvider',
         'Jenssegers\Date\DateServiceProvider',
         'McCool\LaravelAutoPresenter\AutoPresenterServiceProvider',
         'Roumen\Feed\FeedServiceProvider',
         'Zizaco\Entrust\EntrustServiceProvider',
+        'Phecho\Uploader\UploaderServiceProvider',
 
         /*
          * Application Service Providers...

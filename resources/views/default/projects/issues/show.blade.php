@@ -1,18 +1,15 @@
 @extends('layout.dashboard')
 
 @section('content')
-<div class="header">
-    <div class="sidebar-toggler visible-xs">
-        <i class="fa fa-navicon"></i>
-    </div>
-    <span class="uppercase">
-        <i class="fa fa-cubes"></i> {{ trans('dashboard.projects.projects') }}
-    </span>
-    &gt; <small>{{ $project->name }}</small>&gt; <small>{{ trans('dashboard.issues.issues') }}</small>
-</div>
 
 <div class="content-wrapper">
-
+    <div class="header sub-header">
+        <div class="sidebar-toggler visible-xs">
+            <i class="fa fa-navicon"></i>
+        </div>
+        <i class="fa fa-cubes"></i> {{ trans('dashboard.projects.projects') }}
+        &gt; <small>{{ $project->name }}</small>&gt; <small>{{ trans('dashboard.issues.issues') }}</small>
+    </div>
     @include('projects.partials.sub-navbar')
     <div class="row">
         <div class="col-sm-12">
@@ -39,7 +36,7 @@
                     <p>#{{ $comment->id }} {{ $comment->message }}</p>
                     </div>
                     <div class="col-xs-6 text-right">
-                        <a href="{{ $issue->url }}/delete" class="btn btn-sm btn-danger confirm-action" data-method='DELETE'>{{ trans('forms.delete') }}</a>
+                        <a href="{{ $issue->url }}/delete" class="btn btn-sm btn-danger" data-method='DELETE'>{{ trans('forms.delete') }}</a>
                     </div>
                 </div>
                 @empty

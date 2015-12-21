@@ -13,9 +13,9 @@ return [
     // Projects
     'projects' => [
         'status' => [
-            1 => '公开',
-            2 => '内部',
-            3 => '私有',
+            0 => '公开',
+            1 => '内部',
+            2 => '私有',
         ],
     ],
 
@@ -85,6 +85,19 @@ return [
                 'html' => '<p>您已被邀请加入 :app_name 团队的状态页, 请点击以下链接进行注册。</p><p><a href=":link">:link</a></p><p>谢谢, :app_name</p>',
             ],
         ],
+    ],
+
+    // Signin fields
+    'signin' => [
+        'signin' => '登陆',
+        'title' => '登陆',
+        'email' => '邮箱',
+        'password' => '密码',
+        '2fauth' => '验证码',
+        'invalid' => '邮箱或密码错误',
+        'invalid-token' => 'Token无效',
+        'cookies' => '您必须启用Cookie功能来登陆。',
+        'success' => '登陆成功。',
     ],
 
     'signup' => [

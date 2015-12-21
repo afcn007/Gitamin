@@ -110,6 +110,14 @@ class DefaultRoutes
                 'as' => 'index',
                 'uses' => 'ProfilesController@indexAction',
             ]);
+            $router->post('profile', [
+                'as' => 'update',
+                'uses' => 'ProfilesController@updateAction',
+            ]);
+            $router->get('profile/{username}', [
+                'as' => 'show',
+                'uses' => 'ProfilesController@showAction',
+            ])->where('username', '[a-zA-z.0-9_\-]+');
         });
     }
 }

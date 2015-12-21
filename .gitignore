@@ -2,3 +2,5 @@
 node_modules
 phpunit.xml
 vendor
+public/uploads
+.php_cs.cache

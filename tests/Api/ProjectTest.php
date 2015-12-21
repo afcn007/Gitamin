@@ -57,9 +57,9 @@ class ProjectTest extends AbstractTestCase
         $this->post('/api/v1/projects', [
             'name' => 'Foo',
             'description' => 'Bar',
-            'visibility_level' => 1,
+            'visibility_level' => 0,
             'path' => 'Baidu',
-            'creator_id' => 1,
+            'creator_id' => $this->user->id,
             'owner_id' => 1,
         ]);
         $this->seeJson(['name' => 'Foo']);
@@ -73,9 +73,9 @@ class ProjectTest extends AbstractTestCase
         $this->post('/api/v1/projects', [
             'name' => 'Foo',
             'description' => 'Bar',
-            'visibility_level' => 1,
+            'visibility_level' => 0,
             'path' => 'Alibaba',
-            'creator_id' => 1,
+            'creator_id' => $this->user->id,
             'owner_id' => 1,
         ]);
         //$this->seeJson(['name' => 'Foo', 'issues_enabled' => true]);
@@ -90,9 +90,9 @@ class ProjectTest extends AbstractTestCase
         $this->post('/api/v1/projects', [
             'name' => 'Foo',
             'description' => 'Bar',
-            'visibility_level' => 1,
+            'visibility_level' => 0,
             'path' => 'Tencent',
-            'creator_id' => 1,
+            'creator_id' => $this->user->id,
             'owner_id' => 1,
         ]);
         //$this->seeJson(['name' => 'Foo', 'issues_enabled' => false]);
@@ -117,9 +117,9 @@ class ProjectTest extends AbstractTestCase
         $this->put('/api/v1/projects/1', [
             'name' => 'Foo',
             'description' => 'Bar',
-            'visibility_level' => 1,
+            'visibility_level' => 0,
             'path' => 'Baz',
-            'creator_id' => 1,
+            'creator_id' => $this->user->id,
             'owner_id' => 1,
         ]);
         $this->seeJson(['name' => 'Foo']);

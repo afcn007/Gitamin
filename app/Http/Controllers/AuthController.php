@@ -11,12 +11,12 @@
 
 namespace Gitamin\Http\Controllers;
 
-use GrahamCampbell\Binput\Facades\Binput;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\View;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -25,7 +25,7 @@ class AuthController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function showLogin()
+    public function loginAction()
     {
         return View::make('auth.login')
             ->withPageTitle(trans('dashboard.login.login'));
@@ -36,9 +36,14 @@ class AuthController extends Controller
      *
      * @return \Illuminate\Http\RedirectResponse
      */
-    public function postLogin()
+    public function loginPost()
     {
-        $loginData = Binput::only(['email', 'password']);
+        $loginData = Request::only(['login', 'password']);
+
+        // Login with username or email.
+        $loginKey = Str::contains($loginData['login'], '@') ? 'email' : 'username';
+        $loginData[$loginKey] = array_pull($loginData, 'login');
+
         // Validate login credentials.
         if (Auth::validate($loginData)) {
             // Log the user in for one request.
@@ -53,7 +58,7 @@ class AuthController extends Controller
         }
 
         return Redirect::route('auth.login')
-            ->withInput(Binput::except('password'))
+            ->withInput(Request::except('password'))
             ->withError(trans('gitamin.signin.invalid'));
     }
 

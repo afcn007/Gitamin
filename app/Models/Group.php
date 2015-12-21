@@ -11,21 +11,13 @@
 
 namespace Gitamin\Models;
 
+use Gitamin\Traits\OfTypeTrait;
+
 class Group extends Owner
 {
-    protected $table = 'owners';
+    use OfTypeTrait;
 
-    /**
-     * Finds all groups.
-     *
-     * @param \Illuminate\Database\Eloquent\Builder $query
-     *
-     * @return \Illuminate\Database\Eloquent\Builder
-     */
-    public function scopeIsGroup($query)
-    {
-        return $query->where('type', 'Group');
-    }
+    protected $table = 'owners';
 
     /**
      * Returns group route.
@@ -34,6 +26,6 @@ class Group extends Owner
      */
     public function getUrlAttribute()
     {
-        return route('groups.group_show', ['owner' => $this->path]);
+        return route('owners.owner_show', ['owner' => $this->path]);
     }
 }

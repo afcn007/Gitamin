@@ -29,8 +29,8 @@ if (! function_exists('back_url')) {
     {
         $url = app('url');
 
-        if (! is_null($route) && $url->previous() === $url->full()) {
-            return $url->route($name, $params, $status, $headers);
+        if ($route !== null && $url->previous() === $url->full()) {
+            return $url->route($route, $parameters, $status, $headers);
         }
 
         return $url->previous();

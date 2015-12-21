@@ -13,13 +13,12 @@ namespace Gitamin\Http\Controllers;
 
 use AltThree\Validator\ValidationException;
 use Gitamin\Commands\Invite\ClaimInviteCommand;
-use Gitamin\Commands\Owner\AddOwnerCommand;
 use Gitamin\Commands\User\SignupUserCommand;
+use Gitamin\Exceptions\UserAlreadyTakenException;
 use Gitamin\Models\Invite;
-use GrahamCampbell\Binput\Facades\Binput;
-use Illuminate\Database\QueryException;
 use Illuminate\Foundation\Bus\DispatchesJobs;
 use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\View;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -50,8 +49,8 @@ class SignupController extends Controller
         return View::make('signup')
             ->withCode($invite ? $invite->code : '')
             ->withPageTitle('signup')
-            ->withUsername(Binput::old('username'))
-            ->withEmail(Binput::old('emai', $invite ? $invite->email : ''));
+            ->withUsername(Request::old('username'))
+            ->withEmail(Request::old('emai', $invite ? $invite->email : ''));
     }
 
     /**
@@ -74,30 +73,22 @@ class SignupController extends Controller
             throw new BadRequestHttpException();
         }
         */
-
+        $code = 'gitamin';
         try {
             $user = $this->dispatch(new SignupUserCommand(
-                Binput::get('username'),
-                Binput::get('password'),
-                Binput::get('email'),
+                Request::get('username'),
+                Request::get('password'),
+                Request::get('email'),
                 2
             ));
-            $ownerData = [
-                'name' => $user->username,
-                'path' => $user->username,
-                'user_id' => $user->id,
-                'description' => '',
-                'type' => 'User',
-            ];
-            $this->dispatchFromArray(AddOwnerCommand::class, $ownerData);
         } catch (ValidationException $e) {
             return Redirect::route('signup.signup', ['code' => $code])
-                ->withInput(Binput::except('password'))
+                ->withInput(Request::except('password'))
                 ->withTitle(sprintf('%s %s', trans('dashboard.notifications.whoops'), trans('gitamin.signup.failure')))
                 ->withErrors($e->getMessageBag());
-        } catch (QueryException $e) {
+        } catch (UserAlreadyTakenException $e) {
             return Redirect::route('signup.signup', ['code' => $code])
-                ->withInput(Binput::except('password'))
+                ->withInput(Request::except('password'))
                 ->withTitle(sprintf('%s %s', trans('dashboard.notifications.whoops'), trans('gitamin.signup.failure')))
                 ->withErrors(trans('gitamin.signup.taken'));
         }

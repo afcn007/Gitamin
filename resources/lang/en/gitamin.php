@@ -37,9 +37,9 @@ return [
             'failure' => 'The Project could not be deleted. Please try again.',
         ],
         'status' => [
-            1 => 'Public',
-            2 => 'Internal',
-            3 => 'Private',
+            0 => 'Public',
+            1 => 'Internal',
+            2 => 'Private',
         ],
     ],
 
@@ -101,6 +101,11 @@ return [
         'ssh_keys' => 'SSH Keys',
         'preferences' => 'Preferences',
         'audit_log' => 'Audit Log',
+        'edit' => [
+            'title' => 'Profile',
+            'success' => 'Profile updated.',
+            'failure' => 'Something went wrong with the profile.',
+        ],
     ],
 
     // Service Status
@@ -155,19 +160,20 @@ return [
 
     // Signin fields
     'signin' => [
-        'signin' => 'Sign in',
-        'title' => 'Existing user? Sign in',
+        'signin' => 'Existing user? Sign in',
+        'title' => 'Sign in',
+        'login' => 'Username or Email',
         'email' => 'Email',
         'password' => 'Password',
         '2fauth' => 'Authentication Code',
-        'invalid' => 'Invalid email or password',
+        'invalid' => 'Invalid login or password',
         'invalid-token' => 'Invalid token',
         'cookies' => 'You must enable cookies to sign in.',
         'success' => 'Signed in successfully.',
     ],
 
     'signup' => [
-        'signup' => 'Sign up',
+        'signup' => 'Dont\'t have user? Sign up',
         'title' => 'Sign Up',
         'username' => 'Username',
         'email' => 'Email',

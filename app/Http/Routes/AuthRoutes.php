@@ -34,12 +34,12 @@ class AuthRoutes
             $router->get('login', [
                 'middleware' => 'guest',
                 'as' => 'login',
-                'uses' => 'AuthController@showLogin',
+                'uses' => 'AuthController@loginAction',
             ]);
 
             $router->post('login', [
-                'middleware' => ['guest', 'csrf', 'throttling:10,10'],
-                'uses' => 'AuthController@postLogin',
+                'middleware' => ['guest', 'csrf'],
+                'uses' => 'AuthController@loginPost',
             ]);
 
             $router->get('logout', [
